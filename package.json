@@ -1,0 +1,24 @@
+{
+  "name": "rasid",
+  "version": "0.1.0",
+  "description": "Rasid: post-discount factoring position ledger on Drunix (Hyperledger Fabric v2.5 model)",
+  "private": true,
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "LEDGER_MODE=dev node server/index.js",
+    "seed": "node scripts/seed.js",
+    "test": "node --test test/*.test.js",
+    "test:chaincode": "cd chaincode/rasid && go test ./rules",
+    "verify:concurrency": "node scripts/verify-concurrency.js",
+    "benchmark": "node scripts/benchmark.js",
+    "test:drunix": "LEDGER_MODE=drunix node --test test/*.test.js",
+    "build:web": "cd web && npm install && npm run build",
+    "test:e2e": "cd web && npx playwright test"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.10.0",
+    "@hyperledger/fabric-gateway": "^1.5.0",
+    "express": "^4.22.3",
+    "zod": "^3.25.76"
+  }
+}

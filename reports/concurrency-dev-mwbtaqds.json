@@ -1,0 +1,494 @@
+{
+  "generatedAt": "2026-11-11T07:43:02.431Z",
+  "ledgerMode": "dev",
+  "drunixEvidence": false,
+  "runs": 20,
+  "passed": 20,
+  "attackLatencyMs": {
+    "p50": 0,
+    "p95": 0
+  },
+  "environment": "dev · node v22.23.4 · linux",
+  "details": [
+    {
+      "fu": "FU-Vmwbtaqds-1",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "c9ee3f4e6f7d46f8e6f468c0462c1107",
+          "status": "COMMITTED",
+          "block": 12
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "ae253fa9c26d6018e9c5b64ee5e9fcc3",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 12
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-2",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "4e67d3221d884a10dbc65fec1dca5c11",
+          "status": "COMMITTED",
+          "block": 17
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "4ba69514908e9e58da8c789ca7bba926",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 17
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-3",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "8da3898259de04525e1e61fca506204a",
+          "status": "COMMITTED",
+          "block": 22
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "c004bd5e361ba1dda09276a327e4a739",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 22
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-4",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "4b866ef3b84d2448b5fe44c06857177c",
+          "status": "COMMITTED",
+          "block": 27
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "17636ebc3012febf7614140c192c7f7c",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 27
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-5",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "776ff77b0f1fa0aae845f0b11ddca02b",
+          "status": "COMMITTED",
+          "block": 32
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "433c2c2841e213edd626f57f4464bc4d",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 32
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-6",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "81626e7b44a41c806edca35815b0c697",
+          "status": "COMMITTED",
+          "block": 37
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "391d9e46d211b17203126ffc83b9988f",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 37
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-7",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "a99d45f2b5134da1a879e29e41614e8b",
+          "status": "COMMITTED",
+          "block": 42
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "601cb724483817ef0e084ec6ea9e23df",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 42
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-8",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "ddb0534efafc62208d7f7255bd524471",
+          "status": "COMMITTED",
+          "block": 47
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "9f1be89d805323123f6fa0ecd516c72f",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 47
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-9",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "dc78d73cda61c6f4598eb8c82c93110d",
+          "status": "COMMITTED",
+          "block": 52
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "112cef1c8839314f2e450b2b3ee0a2dd",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 52
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-10",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "558d3a31767ecbdf83f42dce5d8252ed",
+          "status": "COMMITTED",
+          "block": 57
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "d1f00ce28cb7170d71b7cbb597163966",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 57
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-11",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "d957295489e37fe85590429c88682932",
+          "status": "COMMITTED",
+          "block": 62
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "11d1066f3c06f8c7a7573c6d1fe8f93b",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 62
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-12",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "a60e067f387fb9112e9d790a2f6839f3",
+          "status": "COMMITTED",
+          "block": 67
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "3c0ed1b246c7dd8b9a8f98761023ae85",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 67
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-13",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "b3bcdc117742375196569e15d0f417c5",
+          "status": "COMMITTED",
+          "block": 72
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "067afe5ddfa27cf993fabb904f1d2a44",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 72
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-14",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "7e55098a8dc0fe3174c6e9f3da445a00",
+          "status": "COMMITTED",
+          "block": 77
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "c054140202ab4a3bb68fd14fddf2235b",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 77
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-15",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "4b0161311bd03b4437d428c221ed265a",
+          "status": "COMMITTED",
+          "block": 82
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "0ded9978c63a1eb912981df80398b32d",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 82
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-16",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "b6d959402ff023d792ff07eb7fc250c3",
+          "status": "COMMITTED",
+          "block": 87
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "9e71b2a8e31f5b9fd8d11f23ac22ae55",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 87
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-17",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "c6bf6cb5d5c076871a878c270b697733",
+          "status": "COMMITTED",
+          "block": 92
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "05d340e0c3d41e2d34f47c606f9b73bb",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 92
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-18",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "01c19a9e2918810156eb13bfa2e6df9d",
+          "status": "COMMITTED",
+          "block": 97
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "ddbb6dee5c1da4f9edada528bab03963",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 97
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-19",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "2b97f57c5357a1bfc895de1417f688fb",
+          "status": "COMMITTED",
+          "block": 102
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "3d42c5096a214f2bdb07c02fda6d1a96",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 102
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    },
+    {
+      "fu": "FU-Vmwbtaqds-20",
+      "ok": true,
+      "tx": [
+        {
+          "to": "FINANCIER_C",
+          "txId": "129e6b28d359363953b1b1ddaeb0da60",
+          "status": "COMMITTED",
+          "block": 107
+        },
+        {
+          "to": "FINANCIER_D",
+          "txId": "dffdc4e641302739b480deed4fa8c54b",
+          "status": "MVCC_READ_CONFLICT",
+          "block": 107
+        }
+      ],
+      "finalPositions": {
+        "FINANCIER_A": 0,
+        "FINANCIER_B": 28800000,
+        "FINANCIER_C": 19200000
+      },
+      "totalPaise": 48000000
+    }
+  ]
+}

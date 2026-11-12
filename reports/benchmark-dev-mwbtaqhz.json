@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-11-11T07:43:02.577Z",
+  "ledgerMode": "dev",
+  "drunixEvidence": false,
+  "environment": "dev · node v22.23.4 · linux",
+  "successfulTransfers": {
+    "samples": 40,
+    "p50Ms": 0,
+    "p95Ms": 0
+  },
+  "rejectedAtEndorsement": {
+    "samples": 40,
+    "p50Ms": 0,
+    "p95Ms": 0
+  }
+}

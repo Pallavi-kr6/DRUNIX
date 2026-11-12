@@ -1,0 +1,10 @@
+=== RUN   TestTransferConservesTotal
+--- PASS: TestTransferConservesTotal (0.00s)
+=== RUN   TestTransferRejections
+--- PASS: TestTransferRejections (0.00s)
+=== RUN   TestLifecycle
+--- PASS: TestLifecycle (0.00s)
+=== RUN   TestRolesAndRelease
+--- PASS: TestRolesAndRelease (0.00s)
+PASS
+ok  	rasid/chaincode/rules	0.002s

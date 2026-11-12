@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rasid · Position ledger</title>
+<style>
+:root{--navy:#0f1f3a;--navy2:#182c4d;--teal:#0f8f7e;--tealbg:#e4f4f1;--amber:#b7791f;--amberbg:#fdf3dc;--red:#c0392b;--redbg:#fbe9e7;--canvas:#f4f6f9;--card:#fff;--line:#dde2ea;--ink:#16202f;--mute:#5d6b80;--ha:#2b6cb0;--hb:#0f8f7e;--hc:#8a5cc2;--hd:#c26b1f}
+@media (prefers-color-scheme:dark){:root{--canvas:#0c1422;--card:#131e30;--line:#26354d;--ink:#e6ecf5;--mute:#93a3bb;--tealbg:#0f3a35;--amberbg:#3b2f10;--redbg:#3d1b17}}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;font:14px/1.45 Inter,Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--canvas);color:var(--ink);font-variant-numeric:tabular-nums}
+button,input,select{font:inherit}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100%}
+nav{background:var(--navy);color:#cfd8e6;padding:18px 12px;display:flex;flex-direction:column;gap:2px}
+nav h1{margin:0 8px 18px;font-size:20px;color:#fff;letter-spacing:.2px}nav h1 small{display:block;font-size:11px;font-weight:400;color:#8fa3c0;margin-top:2px}
+nav button{background:none;border:0;color:inherit;text-align:left;padding:9px 10px;border-radius:6px;cursor:pointer}
+nav button:hover{background:var(--navy2)}nav button[aria-current=true]{background:var(--navy2);color:#fff;box-shadow:inset 3px 0 0 var(--teal)}
+nav .who{margin-top:auto;padding:10px;border-top:1px solid #243a5e;font-size:12px}nav .who b{color:#fff;display:block}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+main{padding:20px 26px;min-width:0}
+.banner{padding:8px 12px;border-radius:6px;margin-bottom:14px;font-size:13px;background:var(--amberbg);color:var(--amber);border:1px solid var(--amber)}
+.banner.ok{background:var(--tealbg);color:var(--teal);border-color:var(--teal)}.banner.bad{background:var(--redbg);color:var(--red);border-color:var(--red)}
+h2{margin:0 0 4px;font-size:18px}h3{margin:18px 0 8px;font-size:14px}.sub{color:var(--mute);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{font-weight:600;color:var(--mute);font-size:12px}
+tr.sel{background:var(--tealbg)}tr[data-fu]{cursor:pointer}.num{text-align:right}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;word-break:break-all}
+.bar{display:flex;height:22px;border-radius:4px;overflow:hidden;background:var(--line);min-width:120px}.bar i{display:block;height:100%}.bar i+i{border-left:2px solid var(--card)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:12px}.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;background:var(--sw)}
+.chip{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;border:1px solid var(--line)}
+.ok{color:var(--teal)}.chip.ok{background:var(--tealbg);border-color:var(--teal)}.chip.sim{background:var(--amberbg);color:var(--amber);border-color:var(--amber)}.chip.no{background:var(--redbg);color:var(--red);border-color:var(--red)}.chip.mv{background:var(--redbg);color:var(--red);border:1px dashed var(--red)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}label{display:grid;gap:3px;font-size:12px;color:var(--mute)}
+input,select{padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);min-width:140px}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:6px;padding:8px 14px;cursor:pointer}.btn:hover{background:var(--navy2)}.btn.alt{background:var(--card);color:var(--ink);border:1px solid var(--line)}.btn.go{background:var(--teal)}.btn:disabled{opacity:.5;cursor:default}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.step{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--card)}.step p{margin:4px 0 8px;color:var(--mute);font-size:13px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px}.vs>div{border:2px solid var(--line);border-radius:8px;padding:10px 12px}.vs .win{border-color:var(--teal);background:var(--tealbg)}.vs .lose{border-color:var(--red);background:var(--redbg)}
+.toast{position:fixed;right:18px;bottom:18px;max-width:420px;padding:12px 14px;border-radius:8px;background:var(--navy);color:#fff;box-shadow:0 4px 18px #0004}
+.login{max-width:360px;margin:12vh auto;padding:0 16px}pre{background:var(--navy);color:#d4e2f5;padding:12px;border-radius:6px;overflow:auto;max-height:340px;font-size:12px}
+.scroll{overflow-x:auto}@media(max-width:760px){.app{grid-template-columns:1fr}nav{flex-direction:row;flex-wrap:wrap;padding:10px}nav h1{width:100%;margin-bottom:6px}nav .who{margin:0;border:0}.vs{grid-template-columns:1fr}main{padding:14px}}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const inr = (p) => '₹' + (Math.trunc(p / 100)).toLocaleString('en-IN') + (p % 100 ? '.' + String(p % 100).padStart(2, '0') : '');
+const toPaise = (s) => { const m = /^\s*(\d[\d,]*)(?:\.(\d{1,2}))?\s*$/.exec(s); return m ? Number(m[1].replace(/,/g, '')) * 100 + Number((m[2] || '').padEnd(2, '0') || 0) : NaN; };
+const uid = (p) => `${p}:${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+const COL = { FINANCIER_A: 'var(--ha)', FINANCIER_B: 'var(--hb)', FINANCIER_C: 'var(--hc)', FINANCIER_D: 'var(--hd)' };
+const NAME = { OPERATOR: 'Platform Operator', FINANCIER_A: 'Financier A', FINANCIER_B: 'Financier B', FINANCIER_C: 'Financier C (test identity)', FINANCIER_D: 'Financier D (test identity)', INSURER: 'Insurer / Guarantor', AUDITOR: 'Auditor' };
+const S = { token: sessionStorage.getItem('t'), me: sessionStorage.getItem('m'), view: 'rec', fu: null, health: null };
+const NAV = { rec: 'Receivables', demo: 'Demo lab', audit: 'Audit timeline', exp: 'Insurer exposure', net: 'Network' };
+const VIEWS = { OPERATOR: ['rec', 'demo', 'audit', 'exp', 'net'], AUDITOR: ['rec', 'demo', 'audit', 'exp', 'net'], INSURER: ['exp', 'rec', 'net'], default: ['rec', 'audit', 'net'] };
+
+async function api(method, url, body) {
+  const r = await fetch(url, { method, headers: { 'content-type': 'application/json', authorization: 'Bearer ' + S.token }, body: body ? JSON.stringify(body) : undefined });
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 401 && S.token) { logout(); }
+  return Array.isArray(j) ? j : { status: r.status, ...j };
+}
+function toast(msg, ms = 6000) { document.querySelectorAll('.toast').forEach((t) => t.remove()); const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg; document.body.append(t); setTimeout(() => t.remove(), ms); }
+function outcomeChip(o, code) {
+  const m = { ACCEPTED: ['ok', 'Committed'], REJECTED_CHAINCODE: ['no', 'Rejected by chaincode'], REJECTED_COMMIT: ['mv', 'Rejected at commit'], REJECTED_API: ['no', 'Rejected by API'], REJECTED_PRECHECK: ['sim', 'Failed simulated check'], ERROR: ['no', 'Error'] }[o] || ['', o];
+  return `<span class="chip ${m[0]}">${m[1]}</span>${code ? ` <span class="mono">${esc(code)}</span>` : ''}`;
+}
+const posBar = (positions, outstanding) => {
+  const segs = positions.filter((p) => p.amountPaise > 0).map((p) => `<i title="${esc(p.holderId)} ${inr(p.amountPaise)}" style="width:${(p.amountPaise / outstanding) * 100}%;background:${COL[p.holderId] || 'var(--mute)'}"></i>`).join('');
+  return `<div class="bar" role="img" aria-label="Position split">${segs}</div>`;
+};
+const legend = (positions, outstanding) => `<div class="legend">${positions.map((p) => `<span style="--sw:${COL[p.holderId] || 'var(--mute)'}">${esc(NAME[p.holderId] || p.holderId)} ${((p.amountPaise / outstanding) * 100).toFixed(0)}% · ${inr(p.amountPaise)}${p.releasedPaise ? ` (released ${inr(p.releasedPaise)})` : ''}</span>`).join('')}</div>`;
+const statusChip = (s) => `<span class="chip ${s === 'SETTLED' ? '' : 'ok'}">${esc(s.replaceAll('_', ' ').toLowerCase())}</span>`;
+
+function logout() { sessionStorage.clear(); S.token = S.me = null; render(); }
+async function refreshHealth() { S.health = await api('GET', '/api/network/health'); }
+
+async function render() {
+  const root = $('#root');
+  if (!S.token) {
+    root.innerHTML = `<div class="login card"><h2>Rasid</h2><p class="sub">One receivable. One verifiable position record.</p>
+      <form id="lf" class="row" style="display:grid"><label>Sign in as<select name="identity">${Object.entries(NAME).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
+      <label>Password<input type="password" name="password" autocomplete="current-password" required></label><button class="btn">Sign in</button><div id="le" class="no" role="alert"></div></form></div>`;
+    $('#lf').onsubmit = async (e) => { e.preventDefault(); const f = Object.fromEntries(new FormData(e.target)); const r = await fetch('/api/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(f) }); const j = await r.json(); if (!r.ok) return ($('#le').textContent = 'Wrong identity or password.'); S.token = j.token; S.me = j.identity; sessionStorage.setItem('t', j.token); sessionStorage.setItem('m', j.identity); S.view = (VIEWS[S.me] || VIEWS.default)[0]; render(); };
+    return;
+  }
+  await refreshHealth();
+  const role = S.me.startsWith('FINANCIER') ? 'default' : S.me; const views = VIEWS[role] || VIEWS.default;
+  if (!views.includes(S.view)) S.view = views[0];
+  const h = S.health;
+  const banner = h.mode === 'dev' ? `<div class="banner" role="note"><b>DEV ENGINE · not Drunix.</b> This is a local mirror of the chaincode for UI work. Concurrency results here are not evidence of Drunix enforcement.</div>`
+    : h.ok ? `<div class="banner ok">Drunix connected · ${esc(h.detail)}</div>` : `<div class="banner bad" role="alert">Drunix unreachable · ${esc(h.detail)}. No transaction will be simulated.</div>`;
+  root.innerHTML = `<div class="app"><nav><h1>Rasid<small>Position ledger</small></h1>${views.map((v) => `<button data-v="${v}" aria-current="${v === S.view}">${NAV[v]}</button>`).join('')}
+    <div class="who"><b>${esc(NAME[S.me])}</b><button data-out style="padding:4px 0;color:#8fa3c0">Sign out</button></div></nav><main>${banner}<div id="v"></div></main></div>`;
+  root.querySelectorAll('[data-v]').forEach((b) => (b.onclick = () => { S.view = b.dataset.v; render(); }));
+  $('[data-out]').onclick = logout;
+  await ({ rec: viewRec, demo: viewDemo, audit: viewAudit, exp: viewExp, net: viewNet }[S.view])($('#v'));
+}
+
+// ---------- Receivables ----------
+async function viewRec(el) {
+  const list = await api('GET', '/api/receivables');
+  if (!Array.isArray(list)) return (el.innerHTML = `<p class="no">Could not read the ledger: ${esc(list.message || list.error)}</p>`);
+  if (!S.fu && list.length) S.fu = list[0].fu.fuId;
+  const isOp = S.me === 'OPERATOR';
+  el.innerHTML = `<h2>Receivables</h2><p class="sub">Positions are read from the ledger. Nothing here is a cached balance.</p>
+  <div class="card scroll">${list.length ? `<table><tr><th>Unit</th><th>Buyer</th><th class="num">Outstanding</th><th>Holders</th><th>Status</th></tr>${list.map((r) => `<tr data-fu="${esc(r.fu.fuId)}" class="${r.fu.fuId === S.fu ? 'sel' : ''}"><td><b>${esc(r.fu.fuId)}</b></td><td>${esc(r.fu.buyer)}</td><td class="num">${inr(r.fu.outstandingPaise)}</td><td style="min-width:160px">${posBar(r.positions, r.fu.outstandingPaise)}</td><td>${statusChip(r.fu.status)}</td></tr>`).join('')}</table>`
+    : '<p>No factoring units yet. ' + (isOp ? 'Register one below, or run the six steps in the Demo lab.' : 'The operator registers units.') + '</p>'}</div>
+  <div id="detail"></div>${isOp ? `<div class="card"><h3 style="margin-top:0">Register factoring unit <span class="chip sim">invoice verification SIMULATED</span></h3><form id="rf" class="row"><label>Unit ID<input name="fuId" value="FU-${Math.floor(1000 + Math.random() * 8999)}" required></label><label>Buyer<input name="buyer" value="Acme Retail Ltd (illustrative)" required></label><label>Invoice no.<input name="invoiceNo" value="INV-${Math.floor(Math.random() * 9999)}" required></label><label>Amount (₹)<input name="amount" value="4,80,000" required></label><button class="btn">Register</button></form><p class="sub" style="margin:8px 0 0">Tip: an invoice number containing “DUP” triggers the simulated duplicate-financing failure.</p></div>` : ''}`;
+  el.querySelectorAll('[data-fu]').forEach((r) => (r.onclick = () => { S.fu = r.dataset.fu; viewRec(el); }));
+  if (isOp) $('#rf').onsubmit = async (e) => { e.preventDefault(); const f = Object.fromEntries(new FormData(e.target)); const p = toPaise(f.amount); if (!(p > 0)) return toast('Enter a valid amount, e.g. 4,80,000'); const r = await api('POST', '/api/receivables', { fuId: f.fuId, buyer: f.buyer, invoiceNo: f.invoiceNo, amountPaise: p, requestRef: uid(f.fuId) }); S.fu = f.fuId; result(r); viewRec(el); };
+  if (S.fu && list.some((r) => r.fu.fuId === S.fu)) detail(list.find((r) => r.fu.fuId === S.fu), $('#detail'), () => viewRec(el));
+}
+function result(r) { toast(r.outcome === 'ACCEPTED' ? `Committed · tx ${String(r.txId).slice(0, 12)}…` : `${r.outcome?.replaceAll('_', ' ').toLowerCase() || r.error}: ${r.reasonCode || ''} — ${r.message || ''}`, 8000); }
+function detail(r, el, reload) {
+  const { fu, positions } = r; const mine = positions.find((p) => p.holderId === S.me); const movable = ['DISCOUNTED', 'PARTIALLY_TRANSFERRED'].includes(fu.status);
+  const isFin = S.me.startsWith('FINANCIER'); const isOp = S.me === 'OPERATOR';
+  const act = [];
+  if (isOp && fu.status === 'REGISTERED') act.push(['Record buyer acceptance', 'accept', {}]);
+  if (isFin && fu.status === 'ACCEPTED') act.push([`Discount and take 100% (${inr(fu.outstandingPaise)})`, 'discount', {}]);
+  el.innerHTML = `<div class="card"><h2>${esc(fu.fuId)} · ${inr(fu.outstandingPaise)}</h2><p class="sub">${esc(fu.buyer)} · ${statusChip(fu.status)} · ${fu.status === 'SETTLED' ? 'all positions released at settlement' : `allocated ${inr(r.allocatedPaise)} · unallocated ${inr(r.unallocatedPaise)}`}</p>
+    ${posBar(positions, fu.outstandingPaise)}${legend(positions, fu.outstandingPaise)}
+    <p class="sub" style="margin-top:10px">Evidence hash <span class="mono">${esc(fu.evidenceHash)}</span> <span class="chip sim">SIMULATED verifier</span></p>
+    <div class="row">${act.map((a, i) => `<button class="btn go" data-a="${i}">${a[0]}</button>`).join('')}
+    ${isOp && movable ? '<button class="btn" data-settle>Settle (simulated payment) and release all</button>' : ''}</div>
+    ${isFin && movable && mine?.amountPaise > 0 ? `<h3>Transfer or release (your position ${inr(mine.amountPaise)})</h3><form id="tf" class="row"><label>Recipient<select name="to">${['FINANCIER_A', 'FINANCIER_B', 'FINANCIER_C', 'FINANCIER_D'].filter((x) => x !== S.me).map((x) => `<option value="${x}">${esc(NAME[x])}</option>`).join('')}</select></label><label>Amount (₹)<input name="amt" value="${(mine.amountPaise / 100).toLocaleString('en-IN')}" required></label><button class="btn go">Transfer</button><button class="btn alt" type="button" data-rel>Release this amount</button></form>` : ''}
+    ${isFin && !(mine?.amountPaise > 0) && movable ? '<p class="sub">You hold no active position in this unit.</p>' : ''}</div>`;
+  const post = async (path, body) => { const res = await api('POST', `/api/receivables/${fu.fuId}/${path}`, { requestRef: uid(fu.fuId), ...body }); result(res); reload(); };
+  el.querySelectorAll('[data-a]').forEach((b) => (b.onclick = () => post(act[b.dataset.a][1], act[b.dataset.a][2])));
+  const st = $('[data-settle]', el); if (st) st.onclick = async () => { const res = await api('POST', `/api/receivables/${fu.fuId}/settle`, {}); toast(res.outcome === 'ACCEPTED' ? `Settled · simulated payment ${res.payment.paymentRef}` : `${res.reasonCode}: ${res.message}`, 8000); reload(); };
+  const tf = $('#tf', el); if (tf) {
+    const amt = () => toPaise(new FormData(tf).get('amt'));
+    tf.onsubmit = (e) => { e.preventDefault(); if (!(amt() > 0)) return toast('Enter a valid amount.'); post('transfer', { toHolderId: new FormData(tf).get('to'), amountPaise: amt() }); };
+    $('[data-rel]', el).onclick = () => (amt() > 0 ? post('release', { amountPaise: amt() }) : toast('Enter a valid amount.'));
+  }
+}
+
+// ---------- Demo lab ----------
+let demoRuns = [];
+async function viewDemo(el) {
+  const fuId = S.demoFu || 'FU-2041';
+  const STEPS = [[1, 'Register', 'Create FU-2041 for ₹4,80,000. Simulated checks run; buyer acceptance recorded.'], [2, 'Discount', 'Financier A takes 100%.'], [3, 'Re-discount', 'A transfers 60% to Financier B.'], [4, 'Attack', 'Two sales of A’s remaining 40%, endorsed on the same state before either is submitted.'], [5, 'Break the rules', 'Over-balance, non-holder, invalid lifecycle, replay, unauthorised role.'], [6, 'Settle', 'Simulated payment, one-time release, replay refused, CERSAI-ready record.']];
+  el.innerHTML = `<h2>Demo lab</h2><p class="sub">Every step runs real ledger transactions as the named identities and waits for the commit verdict.</p>
+  <div class="card row"><label>Factoring unit ID<input id="dfu" value="${esc(fuId)}"></label><button class="btn alt" id="newrun">New run ID</button></div>
+  <div class="steps">${STEPS.map((s) => `<div class="step"><b>${s[0]}. ${s[1]}</b><p>${s[2]}</p><button class="btn ${s[0] === 4 ? 'go' : ''}" data-s="${s[0]}">Run step ${s[0]}</button></div>`).join('')}</div><div id="out"></div>`;
+  $('#dfu').onchange = (e) => (S.demoFu = e.target.value.trim());
+  $('#newrun').onclick = () => { S.demoFu = `FU-2041-R${Date.now().toString(36).slice(-4).toUpperCase()}`; viewDemo(el); };
+  el.querySelectorAll('[data-s]').forEach((b) => (b.onclick = async () => {
+    b.disabled = true; b.textContent = 'Waiting for commit…';
+    const r = await api('POST', `/api/demo/step/${b.dataset.s}`, { fuId: $('#dfu').value.trim() });
+    b.disabled = false; b.textContent = `Run step ${b.dataset.s}`; renderDemo(r, +b.dataset.s);
+  }));
+  if (demoRuns.length) renderDemo(demoRuns.at(-1).r, demoRuns.at(-1).n, true);
+}
+function renderDemo(r, n, again) {
+  if (!again) demoRuns.push({ r, n });
+  const o = $('#out'); if (!o) return;
+  if (r.error) return (o.innerHTML = `<div class="card no" role="alert">${esc(r.error)}: ${esc(r.message || '')}</div>`);
+  let html = `<h3>Step ${n} result</h3>`;
+  if (n === 4) {
+    html += `<div class="vs">${r.outcomes.map((x) => `<div class="${x.outcome === 'ACCEPTED' ? 'win' : 'lose'}"><b>A → ${esc(x.requestRef.split('-').pop() === 'C' ? 'Financier C' : 'Financier D')}</b> · ${inr(r.attempted)}<br>${outcomeChip(x.outcome, x.reasonCode)}<div class="mono">tx ${esc(x.txId)}${x.blockNumber != null ? ` · block ${x.blockNumber}` : ''}</div></div>`).join('')}</div>
+      <p><b class="${r.exactlyOne ? 'ok' : 'no'}">${r.committed} of 2 committed.</b> ${r.exactlyOne ? 'Exactly one sale was accepted.' : 'Unexpected result: investigate before demoing.'}</p>`;
+  } else if (r.outcomes) {
+    html += `<div class="card scroll"><table><tr><th>Actor</th><th>Action</th><th>Outcome</th><th>Detail</th></tr>${r.outcomes.map((x) => `<tr><td>${esc(NAME[x.actor] || x.actor)}</td><td>${esc(x.action)}</td><td>${outcomeChip(x.outcome, x.reasonCode)}</td><td>${esc(x.message)}${x.txId ? `<div class="mono">tx ${esc(x.txId)}</div>` : ''}</td></tr>`).join('')}</table></div>`;
+  }
+  if (r.simulated?.verification) html += `<p><span class="chip sim">SIMULATED</span> ${r.simulated.verification.checks.map((c) => `${esc(c.name)}: ${c.passed ? 'passed' : 'failed'}`).join(' · ')}</p>`;
+  if (r.simulated?.payment) html += `<p><span class="chip sim">SIMULATED</span> payment event <span class="mono">${esc(r.simulated.payment.paymentRef)}</span></p><h3>CERSAI filing-ready record <span class="chip sim">SIMULATED · not filed</span></h3><pre>${esc(JSON.stringify(r.simulated.cersai, null, 2))}</pre>`;
+  const fin = r.final; if (fin && fin.fu) html += `<div class="card"><b>Ledger now</b> · ${statusChip(fin.fu.status)}<div style="margin-top:8px">${posBar(fin.positions, fin.fu.outstandingPaise)}${legend(fin.positions, fin.fu.outstandingPaise)}</div></div>`;
+  o.innerHTML = html;
+}
+
+// ---------- Audit ----------
+async function viewAudit(el) {
+  const list = await api('GET', '/api/receivables'); const ids = Array.isArray(list) ? list.map((x) => x.fu.fuId) : [];
+  if (!S.fu || !ids.includes(S.fu)) S.fu = ids[0];
+  if (!S.fu) return (el.innerHTML = '<h2>Audit timeline</h2><p class="sub">No factoring units yet.</p>');
+  const a = await api('GET', `/api/receivables/${S.fu}/audit`); const chain = new Set((a.onChain || []).map((e) => e.txId));
+  el.innerHTML = `<h2>Audit timeline</h2><p class="sub">Every attempt with actor, time, reference and reason. “On-chain” means the committed transaction also wrote an audit event to the ledger. Rejected attempts are kept in the application’s append-only log.</p>
+  <div class="row card"><label>Factoring unit<select id="au">${ids.map((i) => `<option ${i === S.fu ? 'selected' : ''}>${esc(i)}</option>`).join('')}</select></label><button class="btn alt" id="cs">Show CERSAI-ready record (simulated)</button></div>
+  <div class="card scroll"><table><tr><th>Time</th><th>Actor</th><th>Action</th><th>Outcome</th><th>Reference / tx</th></tr>${(a.attempts || []).map((x) => `<tr><td class="mono">${new Date(x.ts).toLocaleTimeString([], { hour12: false })}.${String(new Date(x.ts).getMilliseconds()).padStart(3, '0')}</td><td>${esc(NAME[x.actor] || x.actor)}</td><td>${esc(x.action)}</td><td>${outcomeChip(x.outcome, x.reasonCode)}<div class="sub" style="margin:2px 0 0">${esc(x.message)}</div></td><td class="mono">${esc(x.requestRef)}${x.txId ? `<br>tx ${esc(x.txId)} ${chain.has(x.txId) ? '<span class="chip ok">on-chain</span>' : ''}` : ''}</td></tr>`).join('') || '<tr><td colspan=5>No attempts recorded.</td></tr>'}</table></div><div id="cx"></div>`;
+  $('#au').onchange = (e) => { S.fu = e.target.value; viewAudit(el); };
+  $('#cs').onclick = async () => { const c = await api('GET', `/api/receivables/${S.fu}/cersai`); $('#cx').innerHTML = `<h3>CERSAI filing-ready record <span class="chip sim">SIMULATED · not filed</span></h3><pre>${esc(JSON.stringify(c, null, 2))}</pre>`; };
+}
+
+// ---------- Insurer exposure ----------
+async function viewExp(el) {
+  const list = await api('GET', '/api/receivables'); const ids = Array.isArray(list) ? list.map((x) => x.fu.fuId) : [];
+  if (!S.fu || !ids.includes(S.fu)) S.fu = ids[0];
+  if (!S.fu) return (el.innerHTML = '<h2>Insurer exposure</h2><p class="sub">No factoring units yet.</p>');
+  const x = await api('GET', `/api/receivables/${S.fu}/exposure`);
+  el.innerHTML = `<h2>Insurer exposure</h2><p class="sub">Read-only. Holdings come from the ledger; the policy is <span class="chip sim">SIMULATED · illustrative ${x.coveragePct ?? ''}% cover</span>, not an insurer integration.</p>
+  <div class="card row"><label>Factoring unit<select id="eu">${ids.map((i) => `<option ${i === S.fu ? 'selected' : ''}>${esc(i)}</option>`).join('')}</select></label></div>
+  ${x.exposures ? `<div class="card scroll"><p>Outstanding <b>${inr(x.outstandingPaise)}</b> · financed <b>${inr(x.allocatedPaise)}</b> · status ${statusChip(x.status)} · policy <span class="mono">${esc(x.policyRef)}</span></p><table><tr><th>Holder</th><th class="num">Active exposure</th><th class="num">Covered (illustrative)</th></tr>${x.exposures.map((e) => `<tr><td>${esc(NAME[e.holder] || e.holder)}</td><td class="num">${inr(e.heldPaise)}</td><td class="num">${inr(e.coveredPaise)}</td></tr>`).join('') || '<tr><td colspan=3>No active positions (released or not yet discounted).</td></tr>'}</table></div>` : `<p class="no">${esc(x.error || 'Unavailable')}</p>`}`;
+  $('#eu').onchange = (e) => { S.fu = e.target.value; viewExp(el); };
+}
+
+// ---------- Network ----------
+async function viewNet(el) {
+  const m = await api('GET', '/api/metrics');
+  el.innerHTML = `<h2>Network</h2><p class="sub">Connection status and measured latency. Nothing on this page is hard-coded.</p>
+  <div class="card"><p>Mode <b>${esc(m.mode)}</b> · ledger ${S.health.ok ? '<span class="ok">reachable</span>' : '<span class="no">unreachable</span>'} · ${esc(S.health.detail)}</p>
+  <p>Successful transactions measured: <b>${m.samples}</b> · p50 <b>${m.p50Ms ?? 'n/a'}${m.p50Ms != null ? ' ms' : ''}</b> · p95 <b>${m.p95Ms ?? 'n/a'}${m.p95Ms != null ? ' ms' : ''}</b></p><p class="sub">${esc(m.note)} Environment: ${esc(m.environment)}. ${m.mode === 'dev' ? 'Dev-engine timings say nothing about Drunix.' : ''}</p></div>`;
+}
+render();
+</script>
+</body>
+</html>
